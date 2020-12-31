@@ -12,6 +12,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class CalendarController {
 	
@@ -92,6 +93,11 @@ public class CalendarController {
 					v.lblYear.setText(v.year+" ³â ");
 					v.lblMonth.setText(v.month+" ¿ù ");
 				}
+				else if(Integer.parseInt(e.getActionCommand())>=1
+						&&Integer.parseInt(e.getActionCommand()) <=31) {
+					v.day = Integer.parseInt(e.getActionCommand());
+					 new CalendarCRUD(v);
+				}
 				
 			}
 		});
@@ -104,7 +110,7 @@ public class CalendarController {
     	}
     	for(int i = v.days.length;i<49;i++) {
     		v.centerPanel.add(v.calBtn[i]= new JButton(""));
-    		//v.calBtn.addActionListener();
+    		
     	}
 	}
 	
