@@ -27,7 +27,7 @@ public class CertifyDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean selectUser(String user_id) {
 		connectDB();
 		sql = "select * from user where user_id = ?";
@@ -43,7 +43,7 @@ public class CertifyDAO {
 		closeDB();
 		return rsNext;
 	}
-	
+
 	public boolean selectCouple(String user_id) {
 		connectDB();
 		sql = "select * from couple where male_id = ? or female_id = ?";
@@ -97,6 +97,8 @@ public class CertifyDAO {
 		connectDB();
 		String male_id = null;
 		String female_id = null;
+		int couple_seq = 0;
+
 		sql = "select user_sex from user where user_id = ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -124,6 +126,39 @@ public class CertifyDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		sql = "select couple_seq from couple where male_id = ? and female_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, male_id);
+			pstmt.setString(2, female_id);
+			rs = pstmt.executeQuery();
+			rsNext = rs.next();
+			couple_seq = rs.getInt(1);
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		sql = "update user set couple_seq = ? where user_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, couple_seq);
+			pstmt.setString(2, user_id);
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		sql = "update user set couple_seq = ? where user_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, couple_seq);
+			pstmt.setString(2, lover_id);
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		closeDB();
 		return row != 0 ? true : false;
 	}
