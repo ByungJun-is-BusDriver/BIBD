@@ -23,12 +23,12 @@ public class ChatStartController {
 		
 		new ChatClientAppController();
 		
-		LoginController login = new LoginController();
+		userInfo userInfo = new userInfo();
 		
-		String user_id = login.getId();
+		String user_id = userInfo.getId();
 
 		Connector con = new Connector();
-    	String str = con.getDatas("SELECT * FROM couple_bus.user WHERE seq = '1'");
+    	String str = con.getDatas("SELECT * FROM couple_bus.user WHERE user_id = '"+ user_id +"'");
     	
 
 		while (true) {
