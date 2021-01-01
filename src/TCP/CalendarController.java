@@ -1,4 +1,5 @@
 package TCP;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -22,23 +23,29 @@ public class CalendarController {
 	Connection conn;
 	String id="sodam";
 	String pw="12341234";
-
+	CalendarController c=this;
+	 int year ,month,day,todays,memoday=0;
+	 int realday;
 	Calendar cal;
-	
+	Calendar today;
 	Statement stmt;
 	ResultSet rs;
+	String [] days = {"일","월","화","수","목","금","토"};
 	
 
 	
 	
-	private CalendarView v;
+	 CalendarView v;
 	public CalendarController(CalendarView v) {
 		this.v=v;
-		
-		
+		today = Calendar.getInstance();
+    	year = today.get(Calendar.YEAR);
+    	month = today.get(Calendar.MONTH)+1;
+		realday = today.get(Calendar.DATE);
 		cal = new GregorianCalendar();
 		conDB();
 		gridInit();
+		v.ta.setText("");
 		showTable();
 		hidebtn();
 		
@@ -55,8 +62,8 @@ public class CalendarController {
 					v.centerPanel.setLayout(gridLayout1);
 					showTable();
 					hidebtn();
-					v.lblYear.setText(v.year+" 년 ");
-					v.lblMonth.setText(v.month+" 월 ");
+					v.lblYear.setText(year+" 년 ");
+					v.lblMonth.setText(month+" 월 ");
 					
 				}
 				else if(obj==v.btnAfter) {
@@ -67,8 +74,8 @@ public class CalendarController {
 					v.centerPanel.setLayout(gridLayout1);
 					showTable();
 					hidebtn();
-					v.lblYear.setText(v.year+" 년 ");
-					v.lblMonth.setText(v.month+" 월 ");
+					v.lblYear.setText(year+" 년 ");
+					v.lblMonth.setText(month+" 월 ");
 				}
 				
 				else if(obj==v.btnBefore2) {
@@ -79,8 +86,8 @@ public class CalendarController {
 					v.centerPanel.setLayout(gridLayout1);
 					showTable();
 					hidebtn();
-					v.lblYear.setText(v.year+" 년 ");
-					v.lblMonth.setText(v.month+" 월 ");
+					v.lblYear.setText(year+" 년 ");
+					v.lblMonth.setText(month+" 월 ");
 				}
 				else if(obj==v.btnAfter2) {
 					v.centerPanel.removeAll();
@@ -90,33 +97,33 @@ public class CalendarController {
 					v.centerPanel.setLayout(gridLayout1);
 					showTable();
 					hidebtn();
-					v.lblYear.setText(v.year+" 년 ");
-					v.lblMonth.setText(v.month+" 월 ");
+					v.lblYear.setText(year+" 년 ");
+					v.lblMonth.setText(month+" 월 ");
 				}
 				else if(Integer.parseInt(e.getActionCommand())>=1
 						&&Integer.parseInt(e.getActionCommand()) <=31) {
-					v.day = Integer.parseInt(e.getActionCommand());
-					 new CalendarCRUD(v);
+					day = Integer.parseInt(e.getActionCommand());
+					 new CalendarCRUD(c);
 				}
-				
+				//else if(obj==)
 			}
 		});
 	}
 	
 	public void gridInit() {
-		for(int i =0;i<v.days.length;i++) {
-    		v.centerPanel.add(v.calBtn[i] = new JButton(v.days[i]));
+		for(int i =0;i<days.length;i++) {
+    		v.centerPanel.add(v.calBtn[i] = new JButton(days[i]));
     		v.calBtn[i].setBackground(Color.white);
     	}
-    	for(int i = v.days.length;i<49;i++) {
+    	for(int i = days.length;i<49;i++) {
     		v.centerPanel.add(v.calBtn[i]= new JButton(""));
     		
     	}
 	}
 	
 	 public void showTable() {
-	    	cal.set(Calendar.YEAR, v.year);
-	    	cal.set(Calendar.MONTH, (v.month-1));
+	    	cal.set(Calendar.YEAR, year);
+	    	cal.set(Calendar.MONTH, (month-1));
 	    	cal.set(Calendar.DATE,1);
 	    	int dayofWeek = cal.get(Calendar.DAY_OF_WEEK);
 	    	
@@ -135,16 +142,20 @@ public class CalendarController {
 	    	for(int i=0;i<hopping;i++) {
 	    		v.calBtn[i+7].setText("");
 	    	}
+	    	v.ta.setText("");
 	    	for(int i=cal.getMinimum(Calendar.DAY_OF_MONTH);
 	    			i<=cal.getMaximum(Calendar.DAY_OF_MONTH);i++) {
 	    		cal.set(Calendar.DATE, i);
-	    		if(cal.get(Calendar.MONTH)!=v.month-1) {
+	    		if(cal.get(Calendar.MONTH)!=month-1) {
 	    			break;
 	    		}
 	    		v.calBtn[i+hopping+6].setBackground(Color.white);
-	    		v.todays = i;
+	    		todays = i;
 	    		checkday();
-	    		if(v.memoday==1) {
+	    		if((cal.MONTH-1)==month&&realday==i) {
+	    			v.calBtn[i+6+hopping].setBackground(Color.green);
+	    		}
+	    		if(memoday==1) {
 	    			v.calBtn[i+6+hopping].setForeground(Color.pink);
 	    			
 	    		}
@@ -165,15 +176,23 @@ public class CalendarController {
 	    }
 	 
 	 public void checkday() {
-		 String sql="select * from calendar where year="+v.year+
-				 " and month="+v.month+" and day="+v.todays+";";
+		 String sql="select * from calendar where year="+year+
+				 " and month="+month+" and day="+todays+";";
+		 String gettemp;
 		 try {
 			 rs=stmt.executeQuery(sql);
 			 if(rs.next()) {
 				 
-				 v.memoday =1;
+				 memoday =1;
+				 gettemp=rs.getString("month")+"월\t"+rs.getString("day")+"일\t"+rs.getString("memo")+"\n";
+				 v.ta.append(gettemp);
+				 while(rs.next()) {
+					 gettemp=rs.getString("month")+"월\t"+rs.getString("day")+"일\t"+rs.getString("memo")+"\n";
+					 v.ta.append(gettemp);
+					 
+				 } 
 			 }
-			 else v.memoday = 0;
+			 else memoday = 0;
 		 }catch(Exception e) {
 			 e.printStackTrace();
 		 }
@@ -197,20 +216,22 @@ public class CalendarController {
 	 }
 	 public void calInput(int data) {
 		 if(data ==-1||data ==1) {
-			 v.month +=(data);
-			 if(v.month<=0) {
-				 v.month = 12;
-				 v.year--;
+			 month +=(data);
+			 if(month<=0) {
+				 month = 12;
+				 year--;
 			 }
-			 else if(v.month>12) {
-				 v.month =1;
-				 v.year++;
+			 else if(month>12) {
+				 month =1;
+				 year++;
 			 }
 		 }
-		 else if(data == 2) {v.year ++;}
-		 else if(data ==-2 ) {v.year--;}
+		 else if(data == 2) {year ++;}
+		 else if(data ==-2 ) {year--;}
 			 
 	 }
+	 
+	 
 	 
 	 
 	 

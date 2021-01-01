@@ -1,25 +1,33 @@
 package TCP;
+
 import javax.swing.JButton;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.*;
 
 public class CalendarCRUD extends JFrame {
 
-	CalendarController cc;
+	CalendarController c;
 	CalendarView v;
 	JButton btnInsert,btnDelete;
 	JTextField txtMemo;
 	JLabel lblday;
 	JTextArea ta;
+	Calendar today;
+	private btnListener BL;
 	
-	CalendarCRUD(CalendarView v){
+	
+	CalendarCRUD(CalendarController c){
+		this.c = c;
 		
-		this.v = v;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		BL = new btnListener();
+		
 		setLayout(null);
-		lblday = new JLabel("★"+v.year+"년"+v.month+"월"+v.day+"일 일정 생성 및 삭제★");
+		lblday = new JLabel("★"+c.year+"년"+c.month+"월"+c.day+"일 일정 생성 및 삭제★");
 		lblday.setBounds(60,50,400,20);
 		lblday.setFont(new Font("맑은 고딕",Font.BOLD,20));
 		add(lblday);
@@ -36,13 +44,52 @@ public class CalendarCRUD extends JFrame {
 		btnDelete = new JButton("삭제");
 		btnInsert.setBounds(100,500,100,30);
 		btnDelete.setBounds(300,500,100,30);
+		btnInsert.addActionListener(BL);
+		btnDelete.addActionListener(BL);
 		add(btnInsert);
 		add(btnDelete);
-		
 		
 		setSize(500,600);
 		setVisible(true);
 		
 		
 	}
+	  private class btnListener implements ActionListener  {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Object obj = e.getSource();
+			if(obj==btnInsert) {
+				String sql = "insert into calendar (memo,year,month,day) values ("
+						+"'"+txtMemo.getText()+"','"+c.year+"','"+c.month+"','"+c.day+"');";
+				//System.out.println(sql);
+				try {
+					c.stmt.executeUpdate(sql);
+				}catch(Exception ex) {System.out.println("insert 오류 :"+e); }
+				
+				
+				c.showTable();
+				
+				
+				
+			}
+			if(obj==btnDelete) {
+				String sql = "delete from calendar where year="+c.year+" and month="
+						+c.month+" and day="+c.day+" and memo=\""+txtMemo.getText()+"\";";
+				System.out.println(sql);
+				try {
+					c.stmt.executeUpdate(sql);
+					
+				}catch(Exception ex ) { System.out.println("delete 오류 : "+e); }
+				
+				c.showTable();
+			}
+			
+		}
+		
+	
+		}
+	
+	
 }

@@ -1,4 +1,5 @@
 package TCP;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -6,16 +7,18 @@ import java.sql.*;
 import java.io.*;
 import javax.swing.*;
 
+
+
 public class CalendarView extends JFrame {
 
-	private CalendarController C;
+	private CalendarController c;
 	
-	String [] days = {"일","월","화","수","목","금","토"};
-    int year ,month,day,todays,memoday=0;
+	
+   
     
     Font f;
     
-    Calendar today;
+    
     
     JButton btnBefore2,btnAfter2; //befor2 작년 // after2 내년
     JButton btnBefore,btnAfter;
@@ -28,12 +31,12 @@ public class CalendarView extends JFrame {
     JPanel northPanel;
     JPanel centerPanel;
     JPanel titlePanel;
-    
+	Calendar today;
     JTextField txtWrite;
     JLabel lblYear,lblMonth,lblTitle;
     JTextArea ta;
     BorderLayout bLayout= new BorderLayout(); 
-    
+    int year ,month,day,todays,memoday=0;
     Connection con = null;
     Statement stmt = null;
     
@@ -44,10 +47,11 @@ public class CalendarView extends JFrame {
     	
     	
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	
     	today = Calendar.getInstance();
     	year = today.get(Calendar.YEAR);
     	month = today.get(Calendar.MONTH)+1;
+    	todays = today.get(Calendar.DATE);
+    	
     	titlePanel = new JPanel();
     	northPanel = new JPanel();
     	
@@ -108,7 +112,7 @@ public class CalendarView extends JFrame {
 			calBtn[i].addActionListener(listener);
 	}
     
-    
+   
     
     
    
