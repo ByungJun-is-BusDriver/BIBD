@@ -237,8 +237,8 @@ public class CalendarController {
 	 
 	 
 	 
-	 public static void main(String arg[]) {
+	/* public static void main(String arg[]) {
 	    	new CalendarController(new CalendarView());
 	    	
-	    }
+	    }*/
 }
