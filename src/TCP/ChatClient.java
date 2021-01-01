@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.swing.JButton;
@@ -15,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import DB.Connector;
 
 public class ChatClient extends JFrame {
 	private static final String SERVER_IP = "192.168.0.16";
@@ -35,11 +38,11 @@ public class ChatClient extends JFrame {
 		
 		MainContainer.add(name);
 		
-		JButton OpenWindow = new JButton("새 창 띄우기");
+		JButton OpenChatWindow = new JButton("새 창 띄우기");
 		
-		MainContainer.add(OpenWindow);
+		MainContainer.add(OpenChatWindow);
 
-		OpenWindow.addActionListener(new ActionListener() {
+		OpenChatWindow.addActionListener(new ActionListener() {
 			// 만들어진 버튼 "새 창 띄우기"에 버튼이 눌러지면 발생하는 행동을 정의
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -47,12 +50,17 @@ public class ChatClient extends JFrame {
 				// new newWindow(); // 클래스 newWindow를 새로 만들어낸다
 				String getName = name.getText();
 				System.out.println(getName);
-				Start(getName);
+				try {
+					Start();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 
 		});
 
-		MainContainer.add(OpenWindow);
+		MainContainer.add(OpenChatWindow);
 
 		setSize(500, 500);
 		setResizable(false);
@@ -67,18 +75,23 @@ public class ChatClient extends JFrame {
 
 	/**
 	 * 소켓 시작
+	 * @throws SQLException 
 	 */
-	public static void Start(String setName) {
+	public static void Start() throws SQLException {
 		String name = null;
 		Scanner scanner = new Scanner(System.in);
-
-		new ChatClientApp();
+		
+		new ChatClientAppController();
+		
+		Connector con = new Connector();
+    	String str = con.getDatas("SELECT * FROM couple_bus.user WHERE seq = '1'");
+    	
 
 		while (true) {
 
 			System.out.println("대화명을 입력하세요.");
 			System.out.print(">>> ");
-			name = setName;
+			name = str;
 
 			if (name.isEmpty() == false) {
 				break;
