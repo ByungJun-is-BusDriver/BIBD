@@ -1,3 +1,4 @@
+
 import java.sql.*;
 
 public class LoginDAO {
@@ -10,6 +11,7 @@ public class LoginDAO {
 	boolean rsNext;
 	int row;
 	String sql;
+	LoginInfo LI;
 
 	public void connectDB() {
 		try {
@@ -38,7 +40,13 @@ public class LoginDAO {
 			pstmt.setString(2, user_pw);
 			rs = pstmt.executeQuery();
 			rsNext = rs.next();
+			LoginInfo.get().setID(rs.getString("user_id"));
+			LoginInfo.get().setLoveid(rs.getString("lover_id"));
+			LoginInfo.get().setFirst_day(rs.getDate("first_day"));
+			
+		    
 			rs.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

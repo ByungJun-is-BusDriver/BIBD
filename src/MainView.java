@@ -1,21 +1,7 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
-import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import DB.Connector;
-import TCP.ChatClientAppController;
-import TCP.ChatWindow;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class MainView extends JFrame {
 
@@ -62,19 +48,7 @@ public class MainView extends JFrame {
 		calenderButton.addActionListener(listener);
 		dayButton.addActionListener(listener);
 		imgGalleryButton.addActionListener(listener);
-		chatButton.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ChatStartController  chatStart = new ChatStartController();
-				try {
-					chatStart.Start();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+		chatButton.addActionListener(listener);
 		certifyButton.addActionListener(listener);
 		logoutButton.addActionListener(listener);
 	}
