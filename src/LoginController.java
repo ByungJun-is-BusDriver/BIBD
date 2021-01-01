@@ -12,6 +12,7 @@ public class LoginController {
 	static String user_pw;
 
 	public LoginController() {
+		userInfo user = new userInfo();
 		loginDAO = new LoginDAO();
 		loginView = new LoginView();
 		loginView.addActionListener(new ActionListener() {
@@ -31,7 +32,7 @@ public class LoginController {
 								JOptionPane.WARNING_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(loginView, "로그인에 성공했습니다", "성공", JOptionPane.INFORMATION_MESSAGE);
-						setId(user_id);
+						user.setId(user_id);
 						mainController = new MainController(user_id, user_pw);
 						loginView.dispose();
 					}
@@ -45,11 +46,6 @@ public class LoginController {
 			}
 		});
 	}
-	public void setId(String user_id) {
-		this.user_id = user_id;
-	}
-	
-	public String getId() {
-		return this.user_id;
-	}
 }
+
+
