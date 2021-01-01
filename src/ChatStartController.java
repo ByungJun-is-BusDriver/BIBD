@@ -15,12 +15,18 @@ public class ChatStartController {
 	private static final String SERVER_IP = "192.168.0.16";
 	private static final int SERVER_PORT = 5000;
 	
+	
 	public static void Start() throws SQLException {
+		
 		String name = null;
 		Scanner scanner = new Scanner(System.in);
 		
 		new ChatClientAppController();
 		
+		LoginController login = new LoginController();
+		
+		String user_id = login.getId();
+
 		Connector con = new Connector();
     	String str = con.getDatas("SELECT * FROM couple_bus.user WHERE seq = '1'");
     	

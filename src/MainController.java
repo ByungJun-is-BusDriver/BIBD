@@ -8,6 +8,7 @@ public class MainController {
 	private MainView mainView;
 	private LoginController loginController;
 	private CertifyController certifyController;
+	public String user_id;
 
 	public MainController(String user_id, String user_pw) {
 		mainDAO = new MainDAO();
@@ -40,5 +41,5 @@ public class MainController {
 			}
 		});
 	}
-
+	
 }
