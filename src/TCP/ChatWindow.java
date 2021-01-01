@@ -85,7 +85,7 @@ public class ChatWindow {
                     pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
                     String request = "quit\r\n";
                     pw.println(request);
-                    System.exit(0);
+                    frame.dispose();
                 }
                 catch (IOException e1) {
                     e1.printStackTrace();

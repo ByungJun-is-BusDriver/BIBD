@@ -28,7 +28,7 @@ public class ChatClient extends JFrame {
 	public ChatClient() {
 
 		setTitle("버튼으로 띄우는 새로운 창");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		JPanel MainContainer = new JPanel();
 		setContentPane(MainContainer);

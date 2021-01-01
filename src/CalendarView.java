@@ -46,7 +46,7 @@ public class CalendarView extends JFrame {
     public CalendarView() {
     	
     	
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	today = Calendar.getInstance();
     	year = today.get(Calendar.YEAR);
     	month = today.get(Calendar.MONTH)+1;

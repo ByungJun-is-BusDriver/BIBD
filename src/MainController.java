@@ -1,3 +1,4 @@
+
 import java.awt.event.*;
 
 import javax.swing.JOptionPane;
@@ -8,7 +9,6 @@ public class MainController {
 	private MainView mainView;
 	private LoginController loginController;
 	private CertifyController certifyController;
-	public String user_id;
 
 	public MainController(String user_id, String user_pw) {
 		mainDAO = new MainDAO();
@@ -20,8 +20,10 @@ public class MainController {
 				Object obj = e.getSource();
 
 				if (obj == mainView.calenderButton) {
+					new CalendarController(new CalendarView());
 
 				} else if (obj == mainView.dayButton) {
+					 new DdayDAO(new DdayView());
 
 				} else if (obj == mainView.imgGalleryButton) {
 
@@ -41,5 +43,5 @@ public class MainController {
 			}
 		});
 	}
-	
+
 }
