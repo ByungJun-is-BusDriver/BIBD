@@ -1,13 +1,18 @@
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class MainView extends JFrame {
 
 	private JPanel panel;
 	protected JButton calenderButton, dayButton, imgGalleryButton, chatButton, certifyButton, logoutButton;
-
+	
+	ChatStartController chatStart = new ChatStartController();
 	public MainView() {
 		this.setTitle("커플 버스 - 메인");
 		this.setSize(500, 500);
@@ -48,7 +53,22 @@ public class MainView extends JFrame {
 		calenderButton.addActionListener(listener);
 		dayButton.addActionListener(listener);
 		imgGalleryButton.addActionListener(listener);
-		chatButton.addActionListener(listener);
+		chatButton.addActionListener(new ActionListener() {
+			// 만들어진 버튼 "새 창 띄우기"에 버튼이 눌러지면 발생하는 행동을 정의
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				// new newWindow(); // 클래스 newWindow를 새로 만들어낸다
+				
+				try {
+					chatStart.Start();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+
+		});
 		certifyButton.addActionListener(listener);
 		logoutButton.addActionListener(listener);
 	}
