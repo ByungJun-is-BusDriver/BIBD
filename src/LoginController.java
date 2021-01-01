@@ -1,3 +1,4 @@
+
 import java.awt.event.*;
 
 import javax.swing.JOptionPane;
@@ -8,11 +9,11 @@ public class LoginController {
 	private LoginView loginView;
 	private MainController mainController;
 	private StartController startController;
-	static String user_id;
-	static String user_pw;
+	private String user_id;
+	private String user_pw;
 
 	public LoginController() {
-		userInfo user = new userInfo();
+		userInfo userInfo = new userInfo();
 		loginDAO = new LoginDAO();
 		loginView = new LoginView();
 		loginView.addActionListener(new ActionListener() {
@@ -32,7 +33,7 @@ public class LoginController {
 								JOptionPane.WARNING_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(loginView, "로그인에 성공했습니다", "성공", JOptionPane.INFORMATION_MESSAGE);
-						user.setId(user_id);
+						userInfo.setId(user_id);
 						mainController = new MainController(user_id, user_pw);
 						loginView.dispose();
 					}
@@ -46,6 +47,5 @@ public class LoginController {
 			}
 		});
 	}
+	
 }
-
-

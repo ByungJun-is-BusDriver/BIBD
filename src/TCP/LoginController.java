@@ -13,6 +13,7 @@ public class LoginController {
 	private String user_pw;
 
 	public LoginController() {
+		
 		loginDAO = new LoginDAO();
 		loginView = new LoginView();
 		loginView.addActionListener(new ActionListener() {
@@ -32,6 +33,7 @@ public class LoginController {
 								JOptionPane.WARNING_MESSAGE);
 					} else {
 						JOptionPane.showMessageDialog(loginView, "로그인에 성공했습니다", "성공", JOptionPane.INFORMATION_MESSAGE);
+					
 						mainController = new MainController(user_id, user_pw);
 						loginView.dispose();
 					}
