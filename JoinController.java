@@ -54,6 +54,7 @@ public class JoinController {
 					startController = new StartController();
 					joinView.dispose();
 				}
+				
 			}
 		});
 	}

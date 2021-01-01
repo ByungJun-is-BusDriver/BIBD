@@ -14,9 +14,9 @@ public class CertifyController {
 		certifyView.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				Object obj = e.getSource();
-				
+
 				if (obj == certifyView.certifyButton) {
 					lover_id = certifyView.loverInput.getText();
 
@@ -42,9 +42,13 @@ public class CertifyController {
 									JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
-
 					certifyView.dispose();
 				}
+
+				else if (obj == certifyView.backButton) {
+					certifyView.dispose();
+				}
+
 			}
 		});
 	}

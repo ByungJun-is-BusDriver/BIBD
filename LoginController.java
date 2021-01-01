@@ -40,6 +40,7 @@ public class LoginController {
 					startController = new StartController();
 					loginView.dispose();
 				}
+				
 			}
 		});
 	}
