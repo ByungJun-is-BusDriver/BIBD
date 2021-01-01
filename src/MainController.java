@@ -20,8 +20,10 @@ public class MainController {
 				Object obj = e.getSource();
 
 				if (obj == mainView.calenderButton) {
+					new CalendarController(new CalendarView());
 
 				} else if (obj == mainView.dayButton) {
+					 new DdayDAO(new DdayView());
 
 				} else if (obj == mainView.imgGalleryButton) {
 

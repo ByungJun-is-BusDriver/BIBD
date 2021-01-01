@@ -1,11 +1,12 @@
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.sql.*;
 import java.io.*;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 
 
 
@@ -33,20 +34,33 @@ public class CalendarView extends JFrame {
     JPanel titlePanel;
 	Calendar today;
     JTextField txtWrite;
-    JLabel lblYear,lblMonth,lblTitle;
+    JLabel lblYear,lblMonth,lblTitle,lblBackground;
+    JPanel panelBack;
     JTextArea ta;
     BorderLayout bLayout= new BorderLayout(); 
     int year ,month,day,todays,memoday=0;
     Connection con = null;
     Statement stmt = null;
-    
+    public JScrollPane scrollPane;
+    ImageIcon changeIcon;
+    Image changeImg;
+    Image background;
  
     
     
     public CalendarView() {
+    	setLayout(null);
     	
-    	
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    	background = new ImageIcon(getClass().getResource("img/Ddaybackimg2.jpg")).getImage();
+		changeImg = background.getScaledInstance(600,700,Image.SCALE_SMOOTH);
+		changeIcon = new ImageIcon(changeImg);
+		lblBackground = new JLabel(changeIcon);
+		
+		
+		
+		//setBackground(Color.white);
+	
+    	//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	today = Calendar.getInstance();
     	year = today.get(Calendar.YEAR);
     	month = today.get(Calendar.MONTH)+1;
@@ -80,25 +94,39 @@ public class CalendarView extends JFrame {
     	northPanel.add(btnAfter);
     	northPanel.add(btnAfter2);
     	centerPanel = new JPanel( new GridLayout(7,7));
-    	f = new Font("휴먼편지체",Font.BOLD,12);
     	
     	
-    	add(titlePanel,BorderLayout.NORTH);
+    	titlePanel.setBounds(130,20,350,70);
+    	titlePanel.setBackground(Color.white);
+    	titlePanel.setBorder(new TitledBorder(new LineBorder(Color.black)));
+    	add(titlePanel);
+    	
     	northPanel.add(centerPanel);
     	
     	btnAdd = new JButton("일정추가");
     	btnDel = new JButton("일정삭제");
-    	
-    	add(northPanel,BorderLayout.CENTER);
+    	northPanel.setBounds(100,100,400,300);
+    	northPanel.setBackground(Color.white);
+    	northPanel.setBorder(new TitledBorder(new LineBorder(Color.black)));
+    	add(northPanel);
     	
     	southPanel= new JPanel();
-    	ta = new JTextArea(15,40);
     	
+		
+    	ta = new JTextArea(10,30);
+    	ta.setFont(new Font("맑은 고딕",Font.BOLD,15));
+    	scrollPane = new JScrollPane(ta);
     	southPanel.add(ta);
-    	add(southPanel,BorderLayout.SOUTH);
+    	southPanel.add(scrollPane);
+    	southPanel.setBounds(100,450,400,200);
+    	southPanel.setBackground(Color.white);
+    	southPanel.setBorder(new TitledBorder(new LineBorder(Color.black)));
+    	add(southPanel);
+    	lblBackground.setBounds(0,0,600,700);
+    	add(lblBackground);
     	
     	
-    	
+  
     	setSize(600,700);
     	setVisible(true); 
     }
