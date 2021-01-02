@@ -60,9 +60,10 @@ public class CalendarCRUD extends JFrame {
 			// TODO Auto-generated method stub
 			Object obj = e.getSource();
 			if(obj==btnInsert) {
-				String sql = "insert into calendar (memo,year,month,day) values ("
-						+"'"+txtMemo.getText()+"','"+c.year+"','"+c.month+"','"+c.day+"');";
-				//System.out.println(sql);
+				String sql = "insert into calendar (memo,year,month,day,user_id,lover_id) values ("
+						+"'"+txtMemo.getText()+"','"+c.year+"','"+c.month+"','"+c.day+"','"+
+						LoginInfo.get().getID()+"','"+LoginInfo.get().getLoveid()+"');";
+				System.out.println(sql);
 				try {
 					c.stmt.executeUpdate(sql);
 				}catch(Exception ex) {System.out.println("insert ¿À·ù :"+e); }

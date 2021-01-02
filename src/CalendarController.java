@@ -158,7 +158,7 @@ public class CalendarController {
 	    		v.calBtn[i+hopping+6].setBackground(Color.white);
 	    		todays = i;
 	    		checkday();
-	    		if((cal.MONTH-1)==month&&realday==i) {
+	    		if((today.MONTH-1)==month&&realday==i) {
 	    			v.calBtn[i+6+hopping].setBackground(Color.green);
 	    		}
 	    		if(memoday==1) {
@@ -183,8 +183,10 @@ public class CalendarController {
 	 
 	 public void checkday() {
 		 String sql="select * from calendar where year="+year+
-				 " and month="+month+" and day="+todays+";";
+				 " and month="+month+" and day="+todays+" and (user_id = "+LoginInfo.get().getID()
+				 +" or lover_id= "+LoginInfo.get().getID()+");";
 		 String gettemp;
+
 		 try {
 			 rs=stmt.executeQuery(sql);
 			 if(rs.next()) {
