@@ -31,12 +31,13 @@ public class CalendarCRUD extends JFrame {
 		lblday.setFont(new Font("맑은 고딕",Font.BOLD,20));
 		add(lblday);
 		
-		ta = new JTextArea("일정 List");
+		ta = new JTextArea("일정 List\n");
 		ta.setBounds(50,100,380,300);
 		add(ta);
 		
 		txtMemo = new JTextField(100);
 		txtMemo.setBounds(50,450,380,20);
+		
 		add(txtMemo);
 		
 		btnInsert = new JButton("입력");
@@ -50,6 +51,8 @@ public class CalendarCRUD extends JFrame {
 		
 		setSize(500,600);
 		setVisible(true);
+		
+		showMemo();
 		
 		
 	}
@@ -70,6 +73,8 @@ public class CalendarCRUD extends JFrame {
 				
 				
 				c.showTable();
+				ta.setText("");
+				showMemo();
 				
 				
 				
@@ -84,12 +89,33 @@ public class CalendarCRUD extends JFrame {
 				}catch(Exception ex ) { System.out.println("delete 오류 : "+e); }
 				
 				c.showTable();
+				ta.setText("");
+				showMemo();
 			}
 			
 		}
 		
 	
 		}
+	  
+	  public void showMemo() {
+		  String sql="select * from calendar where year="+c.year+
+					 " and month="+c.month+" and day="+c.day+" and (user_id = "+LoginInfo.get().getID()
+					 +" or lover_id= "+LoginInfo.get().getID()+");";
+		 
+		  String gettemp;
+		  try {
+			  c.rs=c.stmt.executeQuery(sql);
+			  while(c.rs.next()) {
+				  gettemp="         "+c.rs.getString("memo")+"\n";
+				 ta.append(gettemp);
+			  }
+		  }catch(Exception e) {e.printStackTrace(); }
+		 
+				 
+			
+				
+	  }
 	
 	
 }
