@@ -1,6 +1,7 @@
 
-
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,17 +38,21 @@ public class CalendarController {
 	
 	 CalendarView v;
 	public CalendarController(CalendarView v) {
+		
 		this.v=v;
+		
 		today = Calendar.getInstance();
     	year = today.get(Calendar.YEAR);
     	month = today.get(Calendar.MONTH)+1;
 		realday = today.get(Calendar.DATE);
 		cal = new GregorianCalendar();
+		//v.add(v.lblBackground,BorderLayout.WEST);
 		conDB();
 		gridInit();
 		v.ta.setText("");
 		showTable();
 		hidebtn();
+		
 		
 		v.addButtonActionListener(new ActionListener() {
 
@@ -108,6 +113,7 @@ public class CalendarController {
 				//else if(obj==)
 			}
 		});
+		
 	}
 	
 	public void gridInit() {
@@ -184,10 +190,10 @@ public class CalendarController {
 			 if(rs.next()) {
 				 
 				 memoday =1;
-				 gettemp=rs.getString("month")+"岿\t"+rs.getString("day")+"老\t"+rs.getString("memo")+"\n";
+				 gettemp="         "+rs.getString("month")+"岿\t"+rs.getString("day")+"老\t"+rs.getString("memo")+"\n";
 				 v.ta.append(gettemp);
-				 while(rs.next()) {
-					 gettemp=rs.getString("month")+"岿\t"+rs.getString("day")+"老\t"+rs.getString("memo")+"\n";
+				 while(rs.next()) { 
+					 gettemp="         "+rs.getString("month")+"岿\t"+rs.getString("day")+"老\t"+rs.getString("memo")+"\n";
 					 v.ta.append(gettemp);
 					 
 				 } 
@@ -241,4 +247,5 @@ public class CalendarController {
 	    	new CalendarController(new CalendarView());
 	    	
 	    }*/
+	 
 }
