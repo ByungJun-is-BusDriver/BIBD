@@ -26,7 +26,7 @@ public class MainController {
 					 new DdayDAO(new DdayView());
 
 				} else if (obj == mainView.imgGalleryButton) {
-
+					 new ImgGalleryController();
 				} else if (obj == mainView.chatButton) {
 
 				} else if (obj == mainView.certifyButton) {
