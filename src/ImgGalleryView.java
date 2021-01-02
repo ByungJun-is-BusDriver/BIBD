@@ -17,7 +17,7 @@ public class ImgGalleryView extends JFrame {
 	
 	public ImgGalleryView() {
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("이미지 갤러리");
 		b1 = new JButton("게시물 업로드");
 		b2 = new JButton("수정");
