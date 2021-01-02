@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import DB.Connector;
-import TCP.ChatClientAppController;
-import TCP.ChatWindow;
 
 public class ChatStartController {
 	private static final String SERVER_IP = "192.168.0.16";

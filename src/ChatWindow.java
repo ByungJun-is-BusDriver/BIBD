@@ -21,6 +21,9 @@ import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+
+import DB.Connector;
 
 public class ChatWindow {
     private String name;
@@ -31,6 +34,8 @@ public class ChatWindow {
     private TextArea textArea;
 
     private Socket socket;
+    
+    String user_id = null;
 
     public ChatWindow(String name, Socket socket) {
         this.name = name;
@@ -40,6 +45,9 @@ public class ChatWindow {
         textField = new TextField();
         textArea = new TextArea(30, 80);
         this.socket = socket;
+        
+        userInfo user = new userInfo();
+        this.user_id = user.getId();
 
         new ChatClientReceiveThread(socket).start();
     }
@@ -85,7 +93,8 @@ public class ChatWindow {
                     pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.UTF_8), true);
                     String request = "quit\r\n";
                     pw.println(request);
-                    System.exit(0);
+                    //System.exit(0);
+                    frame.dispose();
                 }
                 catch (IOException e1) {
                     e1.printStackTrace();
@@ -125,6 +134,7 @@ public class ChatWindow {
                 BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                 while(true) {
                     String msg = br.readLine();
+                    
                     textArea.append(msg);
                     textArea.append("\n");
                 }
