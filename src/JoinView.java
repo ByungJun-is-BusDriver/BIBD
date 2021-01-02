@@ -6,8 +6,8 @@ import java.awt.event.*;
 public class JoinView extends JFrame {
 
 	private JPanel panel, sexPanel;
-	private JLabel idLabel, pwLabel, nameLabel, birthLabel, birthExLabel, sexLabel;
-	protected JTextField idInput, nameInput, birthInput;
+	private JLabel idLabel, pwLabel, nameLabel, birthLabel, birthExLabel, firstLabel, firstExLabel, sexLabel;
+	protected JTextField idInput, nameInput, birthInput, firstInput;
 	protected JPasswordField pwInput;
 	protected JRadioButton male, female;
 	protected JButton joinButton, backButton;
@@ -51,8 +51,8 @@ public class JoinView extends JFrame {
 		birthInput = new JTextField();
 		birthInput.setBounds(200, 200, 100, 25);
 		panel.add(birthInput);
-		
-		birthExLabel = new JLabel("ex) 2021-01-01");
+
+		birthExLabel = new JLabel("ex) 2001-01-01");
 		birthExLabel.setBounds(300, 200, 100, 25);
 		panel.add(birthExLabel);
 
@@ -71,10 +71,22 @@ public class JoinView extends JFrame {
 		sexPanel.setBounds(200, 250, 100, 25);
 		panel.add(sexPanel);
 
+		firstLabel = new JLabel("처음 만난 날");
+		firstLabel.setBounds(100, 300, 100, 25);
+		panel.add(firstLabel);
+
+		firstInput = new JTextField();
+		firstInput.setBounds(200, 300, 100, 25);
+		panel.add(firstInput);
+
+		firstExLabel = new JLabel("ex) 2021-01-01");
+		firstExLabel.setBounds(300, 300, 100, 25);
+		panel.add(firstExLabel);
+
 		joinButton = new JButton("회원가입");
-		joinButton.setBounds(150, 300, 200, 50);
+		joinButton.setBounds(150, 350, 200, 50);
 		panel.add(joinButton);
-		
+
 		backButton = new JButton("뒤로");
 		backButton.setBounds(0, 0, 100, 25);
 		panel.add(backButton);

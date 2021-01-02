@@ -13,6 +13,7 @@ public class JoinController {
 	private String user_name;
 	private String user_birth;
 	private String user_sex;
+	private String first_day;
 
 	public JoinController() {
 		joinDAO = new JoinDAO();
@@ -33,15 +34,16 @@ public class JoinController {
 					} else if (joinView.female.isSelected()) {
 						user_sex = "여";
 					}
+					first_day = joinView.firstInput.getText();
 
 					if (user_id.equals("") || user_pw.equals("") || user_name.equals("") || user_birth.equals("")
-							|| user_sex == null) {
+							|| user_sex == null || first_day.equals("")) {
 						JOptionPane.showMessageDialog(joinView, "입력하지 않은 항목이 있습니다", "실패 - 미입력",
 								JOptionPane.WARNING_MESSAGE);
 					} else if (joinDAO.selectUser(user_id)) {
 						JOptionPane.showMessageDialog(joinView, "이미 존재하는 아이디입니다", "실패 - 중복",
 								JOptionPane.WARNING_MESSAGE);
-					} else if (!joinDAO.insertUser(user_id, user_pw, user_name, user_birth, user_sex)) {
+					} else if (!joinDAO.insertUser(user_id, user_pw, user_name, user_birth, user_sex, first_day)) {
 						JOptionPane.showMessageDialog(joinView, "생일을 다시 입력해주세요", "실패 - 생일",
 								JOptionPane.WARNING_MESSAGE);
 					} else {
@@ -55,7 +57,7 @@ public class JoinController {
 					startController = new StartController();
 					joinView.dispose();
 				}
-				
+
 			}
 		});
 	}

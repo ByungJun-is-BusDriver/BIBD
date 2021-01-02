@@ -2,7 +2,7 @@
 import java.sql.*;
 
 public class JoinDAO {
-	
+
 	String jdbcDriver = "com.mysql.cj.jdbc.Driver";
 	String jdbcUrl = "jdbc:mysql://bibd.cw1fnax2ura3.ap-northeast-2.rds.amazonaws.com:3306/couple_bus";
 	Connection conn;
@@ -45,10 +45,11 @@ public class JoinDAO {
 		closeDB();
 		return rsNext;
 	}
-	
-	public boolean insertUser(String user_id, String user_pw, String user_name, String user_birth, String user_sex) {
+
+	public boolean insertUser(String user_id, String user_pw, String user_name, String user_birth, String user_sex,
+			String first_day) {
 		connectDB();
-		sql = "insert into user(user_id, user_pw, user_name, user_birth, user_sex) values(?, ?, ?, ?, ?)";
+		sql = "insert into user(user_id, user_pw, user_name, user_birth, user_sex, first_day) values(?, ?, ?, ?, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
@@ -56,6 +57,7 @@ public class JoinDAO {
 			pstmt.setString(3, user_name);
 			pstmt.setString(4, user_birth);
 			pstmt.setString(5, user_sex);
+			pstmt.setString(6, first_day);
 			row = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,5 +65,5 @@ public class JoinDAO {
 		closeDB();
 		return row != 0 ? true : false;
 	}
-	
+
 }
