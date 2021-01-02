@@ -48,7 +48,7 @@ public class DdayDAO {
 		 
 		 
 		cal.setTime(LoginInfo.get().getFirst_day());
-		cal.add(Calendar.DATE, 101);
+		cal.add(Calendar.DATE, 100);
 		v.lbl100.setText("100¿œ :"+df.format(cal.getTime()));
 		cal.add(Calendar.DATE, 200);
 		v.lbl300.setText("300¿œ :"+df.format(cal.getTime()));
